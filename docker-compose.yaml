@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  nginx_static:
+    build:
+      context: server/frontend
+      dockerfile: Dockerfile
+    image: nginx_static
+    ports:
+      - 8080:80
+    container_name: nginx_static
+  grpc_proxy:
+    build:
+      context: server/grpc_proxy
+      dockerfile: Dockerfile
+    image: grpc_proxy
+    container_name: grpc_proxy
+    ports:
+      - 8081:8081
+      - 9901:9901
+    links:
+      - av_server
+  av_server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: av_server
+    container_name: av_server
+    ports:
+      - 10101:10101

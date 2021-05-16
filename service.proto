@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+option go_package = "github.com/packedbread/agnostic-visualization;main";
+
+message Point {
+    double x = 1;
+    double y = 2;
+}
+
+message Line {
+    Point from = 1;
+    Point to = 2;
+}
+
+message Rectangle {
+    Point lower_left = 1;
+    Point upper_right = 2;
+}
+
+message Drawable {
+    oneof content {
+        Line line = 1;
+        Rectangle rectangle = 2;
+    }
+}
+
+message RegisterRequest {
+
+}
+
+message RegisterResult {
+    string scene_id = 1;
+    string authenticator = 2;
+}
+
+message DelistRequest {
+    string scene_id = 1;
+    string authenticator = 2;
+}
+
+message DelistResult {
+
+}
+
+message DrawRequest {
+    string scene_id = 1;
+    string authenticator = 2;
+    Drawable drawable = 3;
+}
+
+message DrawResult {
+    string drawing_id = 1;
+}
+
+message RemoveRequest {
+    string scene_id = 1;
+    string authenticator = 2;
+    string drawing_id = 3;
+}
+
+message RemoveResult {
+
+}
+
+message ClearRequest {
+    string scene_id = 1;
+    string authenticator = 2;
+}
+
+message ClearResult {
+
+}
+
+message PollRequest {
+    string scene_id = 1;
+    string authenticator = 2;
+    uint64 after_timestamp = 3;
+}
+
+message PollResult {
+    repeated Drawable drawings = 1;
+    uint64 last_timestamp = 2;
+}
+
+service Drawer {
+    rpc Register(RegisterRequest) returns (RegisterResult) {}
+    rpc Delist(DelistRequest) returns (DelistResult) {}
+    rpc Draw(DrawRequest) returns (DrawResult) {}
+    rpc Remove(RemoveRequest) returns (RemoveResult) {}
+    rpc Clear(ClearRequest) returns (ClearResult) {}
+
+    rpc Poll(PollRequest) returns (PollResult) {}
+}
