@@ -10,6 +10,7 @@ import (
 )
 
 var port = flag.Int("port", 10101, "The server port")
+var mongoAddress = flag.String("mongo-address", "mongodb://mongo:27017", "Full mongo access url")
 
 func EnsureNoError(err error) {
 	if err != nil {
@@ -20,10 +21,10 @@ func EnsureNoError(err error) {
 func main() {
 	flag.Parse()
 
-	initMongo()
+	initMongo(*mongoAddress)
 	defer stopMongo()
 
-	listener, err := net.Listen("tcp", fmt.Sprintf("127.0.0.1:%d", *port))
+	listener, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%d", *port))
 	fmt.Printf("Listening on port %d\n", *port)
 	EnsureNoError(err)
 

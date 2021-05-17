@@ -276,8 +276,8 @@ func newDrawerServer() *drawerServer {
 	return &drawerServer{}
 }
 
-func initMongo() {
-	mongoClient, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+func initMongo(address string) {
+	mongoClient, err := mongo.NewClient(options.Client().ApplyURI(address))
 	EnsureNoError(err)
 
 	ctx, cancel := defaultContext()

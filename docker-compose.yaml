@@ -6,8 +6,10 @@ services:
       dockerfile: Dockerfile
     image: nginx_static
     ports:
-      - 8080:80
+      - 6900:80
     container_name: nginx_static
+    links:
+      - grpc_proxy
   grpc_proxy:
     build:
       context: server/grpc_proxy
@@ -15,7 +17,7 @@ services:
     image: grpc_proxy
     container_name: grpc_proxy
     ports:
-      - 8081:8081
+      - 6901:6901
       - 9901:9901
     links:
       - av_server
@@ -25,5 +27,14 @@ services:
       dockerfile: server/Dockerfile
     image: av_server
     container_name: av_server
+    links:
+      - mongo
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    volumes:
+      - mongo_data:/data/db
     ports:
-      - 10101:10101
+      - 27017:27017
+volumes:
+  mongo_data:
