@@ -8,4 +8,3 @@
 - separate authenticator into read and write authenticators, read for frontend (poll requests) and write for scene modification requests
 - look into using rpc code in returned errors
 - tls, musthave
-- docker compose config
