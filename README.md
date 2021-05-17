@@ -2,7 +2,7 @@
 
 Basically, it is a canvas drawing grpc api with persistent storage of scenes.
 
-Current deployment is located here: nilserver.dynv6.net:6900
+Current deployment is located here: http://nilserver.dynv6.net:6900
 
 # Server general description
 
@@ -42,3 +42,10 @@ If you want to deploy this for yourself, keep in mind that it requires 2 open (o
 # Client
 There is also a small client that can be used as console util for grpc api. It was used only for testing. 
 
+# API Usage
+- Create new scene using `Register` method, it returns `SceneId` and `Authenticator`. All scene-modifying requests require `Authenticator`.
+- Add drawings using `Draw` method, it returns `DrawingId`.
+- Remove drawings by `DrawingId` using `Remove` method.
+- Remove all drawings on a scene using `Clear` method.
+- Remove scene completely using `Delist` method.
+- Poll for scene updates using `Poll` method. `AfterTimestamp` parameter is used for pagination, it should be updated on client after receiving new batch of drawings. Currently used on website to draw on canvas, but can be used with other drawing software.
