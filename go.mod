@@ -3,12 +3,15 @@ module github.com/packedbread/agnostic-visualization
 go 1.16
 
 require (
-	github.com/gorilla/websocket v1.4.2
-	github.com/memcachier/mc v2.0.1+incompatible
-	go.mongodb.org/mongo-driver v1.5.1
-	golang.org/x/net v0.0.0-20210428140749-89ef3d95e781 // indirect
-	golang.org/x/sys v0.0.0-20210426230700-d19ff857e887 // indirect
-	google.golang.org/genproto v0.0.0-20210427215850-f767ed18ee4d // indirect
-	google.golang.org/grpc v1.37.0
-	google.golang.org/protobuf v1.26.0 // indirect
+	github.com/aws/aws-sdk-go v1.38.40 // indirect
+	github.com/klauspost/compress v1.12.2 // indirect
+	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
+	go.mongodb.org/mongo-driver v1.5.2
+	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a // indirect
+	golang.org/x/net v0.0.0-20210510120150-4163338589ed // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sys v0.0.0-20210514084401-e8d321eab015 // indirect
+	google.golang.org/genproto v0.0.0-20210517163617-5e0236093d7a // indirect
+	google.golang.org/grpc v1.37.1
+	google.golang.org/protobuf v1.26.0
 )
