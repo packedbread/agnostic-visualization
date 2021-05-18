@@ -18,6 +18,7 @@ var sceneId = flag.String("scene-id", "", "SceneId after registration")
 var authenticator = flag.String("authenticator", "", "Authenticator after registration")
 var drawingType = flag.String("drawing-type", "", "Drawable name")
 var drawingData = flag.String("drawing-data", "", "Serialized drawing data -- string of numbers")
+var drawingId = flag.String("drawing-id", "", "Drawing Id")
 
 var client DrawerClient
 
@@ -86,6 +87,15 @@ func DrawHandler() {
 				},
 			},
 		}
+	} else if *drawingType == "circle" {
+		drawable = &Drawable{
+			Content: &Drawable_Circle{
+				Circle: &Circle{
+					Center: &Point{X: floatData[0], Y: floatData[1]},
+					Radius: floatData[2],
+				},
+			},
+		}
 	} else {
 		EnsureNoError(errors.New(fmt.Sprintf("Unknown drawing type %s", *drawingType)))
 	}
@@ -110,13 +120,17 @@ func PollHandler() {
 }
 
 func RemoveHandler() {
-	// _, err = client.Remove(context.Background(), &RemoveRequest{
-	// 	SceneId:       registerResult.SceneId,
-	// 	Authenticator: registerResult.Authenticator,
-	// 	DrawingId:     drawResult.DrawingId,
-	// })
-	// EnsureNoError(err)
-	// fmt.Printf("Removed drawing with DrawingId %s\n", drawResult.DrawingId)
+	EnsureNotEmpty(sceneId, "Empty scene-id")
+	EnsureNotEmpty(authenticator, "Empty authenticator")
+	EnsureNotEmpty(drawingId, "Empty drawing-id")
+
+	_, err := client.Remove(context.Background(), &RemoveRequest{
+		SceneId:       *sceneId,
+		Authenticator: *authenticator,
+		DrawingId:     *drawingId,
+	})
+	EnsureNoError(err)
+	fmt.Printf("Removed drawing with DrawingId %s from scene with SceneId %s\n", *drawingId, *sceneId)
 }
 
 func ClearHandler() {
