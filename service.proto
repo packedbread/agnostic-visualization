@@ -12,6 +12,11 @@ message Line {
     Point to = 2;
 }
 
+message Circle {
+    Point center = 1;
+    double radius = 2;
+}
+
 message Rectangle {
     Point lower_left = 1;
     Point upper_right = 2;
@@ -21,6 +26,7 @@ message Drawable {
     oneof content {
         Line line = 1;
         Rectangle rectangle = 2;
+        Circle circle = 3;
     }
 }
 

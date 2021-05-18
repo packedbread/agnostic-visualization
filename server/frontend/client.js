@@ -65,12 +65,23 @@ function PollAndDraw(SceneId) {
 function Draw(drawing) {
     if (drawing.hasLine()) {
         let line = drawing.getLine()
+
         context.beginPath()
         context.moveTo(line.getFrom().getX(), line.getFrom().getY())
         context.lineTo(line.getTo().getX(), line.getTo().getY())
         context.stroke()
     } else if (drawing.hasRectangle()) {
         let rect = drawing.getRectangle()
+        let lowerLeft = rect.getLowerLeft()
+        let upperRight = rect.getUpperRight()
+
+        context.strokeRect(lowerLeft.getX(), upperRight.getY(), upperRight.getX() - lowerLeft.getX(), lowerLeft.getY() - upperRight.getY())
+    } else if (drawing.hasCircle()) {
+        let circle = drawing.getCircle()
+        
+        context.beginPath()
+        context.arc(circle.getCenter().getX(), circle.getCenter().getY(), circle.getRadius(), 0, 2 * Math.PI)
+        context.stroke()
     }
 }
 

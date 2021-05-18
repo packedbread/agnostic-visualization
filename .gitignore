@@ -1,3 +1,5 @@
 **/.idea/**
 **/*[_\.]pb\.**
 **/.vscode/**
+server/server
+client/client
